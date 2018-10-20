@@ -1,9 +1,9 @@
--- 
-MAX_INCREASE = 1.5
-MIN_INCREASE = 0.2
-RAND_FLUC = 0.2
-START_INCREASE_HR = 4
-STOP_INCREASE_HR = 16
+-- Customizable Variables
+MAX_INCREASE = 1.5 -- Maximum increase in temperature between time changes
+MIN_INCREASE = 0.2 -- Minimum increase in temperature between time changes
+RAND_FLUC = 0.2 -- How much the temperature will fluctuate when equal to the Min or Max temperature
+START_INCREASE_HR = 4 -- When the temperature will start increasing based on the time of day (4 am is default)
+STOP_INCREASE_HR = 16 -- When the temperature will stop increasing based on the time of day (4 pm is default)
 
 -- First value in array is Max and Min temp for Jan. Second is for Feb. and so on
 MonthData = {
@@ -49,7 +49,7 @@ Citizen.CreateThread(function()
 
 	temp = calcTemp( init_w, init_m, init_hr )
 	while true do
-		Citizen.Wait(1000)
+		Wait(1)
 			local years = GetClockYear()
 			local months = GetClockMonth()
 			local days = GetClockDayOfWeek()
@@ -68,6 +68,7 @@ Citizen.CreateThread(function()
 end)
 
 Citizen.CreateThread(function()
+		Citizen.Wait(1000)
 	while true do
 		Citizen.Wait(1)
 		drawTxt(0.66, 1.374, 1.0,1.0,0.45, "~y~Temp: ~s~" .. string.format("%0.1f", tostring(temp)) .. " °F  |  " .. string.format("%0.1f", tostring(FtoC(temp))) .. " °C", 185, 185, 185, 255)
